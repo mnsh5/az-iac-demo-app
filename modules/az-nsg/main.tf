@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "az_nsg" {
   name                = "az-jazz-nsg"
-  location            = azurerm_resource_group.az_rg.location
-  resource_group_name = azurerm_resource_group.az_rg.name
+  location            = "East US"
+  resource_group_name = "rg-jazz-devops-app-dev"
 
   security_rule {
     name                       = "AllowSSH"

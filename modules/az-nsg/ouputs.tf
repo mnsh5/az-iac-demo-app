@@ -3,3 +3,8 @@ output "az_nsg" {
   value       = azurerm_network_security_group.az_nsg.name
   description = "Name of the Network Security Group"
 }
+
+output "nsg_id" {
+  value = azurerm_network_security_group.az_nsg.id
+}
+

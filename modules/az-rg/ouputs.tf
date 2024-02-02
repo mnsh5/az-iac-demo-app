@@ -3,3 +3,7 @@ output "rg_name" {
   value       = azurerm_resource_group.az_rg.name
   description = "Name of the resource group"
 }
+
+output "location" {
+  value = azurerm_resource_group.az_rg.location
+}
