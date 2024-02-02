@@ -1,5 +1,5 @@
 locals {
-  rg_name = "Jazz_AR_DevOps-app-dev"
+  rg_name = "rg-jazz-devops-app-dev"
 }
 
 resource "azurerm_resource_group" "az_rg" {
