@@ -28,6 +28,8 @@ dist
 # Local python packages
 .python_packages/
 
+az-emat-back.zip
+
 # Python Environments
 .env
 .venv
