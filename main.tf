@@ -11,7 +11,7 @@ module "az_resource_group" {
 ######################################
 module "az_virtual_network" {
   source   = "./modules/az-vnet"
-  location = var.m_location
+  m_location = var.m_location
   # depends_on = [module.az_network_security_group]
 }
 
@@ -23,3 +23,12 @@ module "az_virtual_network" {
 #   location = var.m_location
 #   # depends_on = [module.az_resource_group]
 # }
+
+######################################
+#  Main Function APP       #
+######################################
+module "az_function_app" {
+  source   = "./modules/az-function_app"
+  m_location = var.m_location
+  # depends_on = [module.az_network_security_group]
+}

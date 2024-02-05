@@ -1,6 +1,6 @@
 resource "azurerm_network_security_group" "az_nsg" {
   name                = "nsg-az-emat-app"
-  location            = "East US"
+  location            = var.m_location
   resource_group_name = "rg-emat-app-dev"
 
   security_rule {
