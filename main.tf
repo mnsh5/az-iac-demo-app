@@ -10,7 +10,7 @@ module "az_resource_group" {
 #  Main Virtual Network of APP       #
 ######################################
 module "az_virtual_network" {
-  source   = "./modules/az-vnet"
+  source     = "./modules/az-vnet"
   m_location = var.m_location
   # depends_on = [module.az_network_security_group]
 }
@@ -28,7 +28,6 @@ module "az_virtual_network" {
 #  Main Function APP       #
 ######################################
 module "az_function_app" {
-  source   = "./modules/az-function_app"
+  source     = "./modules/az-function_app"
   m_location = var.m_location
-  # depends_on = [module.az_network_security_group]
 }

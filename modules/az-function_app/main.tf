@@ -34,27 +34,59 @@ resource "azurerm_linux_function_app" "az_demo_app" {
   name                       = "az-function-emat-back"
   location                   = var.m_location
   resource_group_name        = "rg-emat-app-dev"
-
-  service_plan_id        = azurerm_service_plan.az_app_svc_plan.id
+  service_plan_id            = azurerm_service_plan.az_app_svc_plan.id
   storage_account_name       = azurerm_storage_account.az_storage_account.name
   storage_account_access_key = azurerm_storage_account.az_storage_account.primary_access_key
+  https_only                 = true
 
-  https_only = true
-
-  # App settings should be configured during application deployment
-  # app_settings = null
   app_settings = {
-      FUNCTIONS_WORKER_RUNTIME = "python"
+    FUNCTIONS_WORKER_RUNTIME = "python"
   }
-
-  # virtual_network_subnet_id = var.virtual_network_subnet_id
 
   site_config {
     # linux_fx_version = "python|3.11"
+    application_stack {
+      python_version = "3.11"
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      app_settings,
+    ]
   }
 
   depends_on = [azurerm_storage_blob.function_blob]
 }
+
+resource "azurerm_function_app_function" "az_demo_app" {
+  name            = "az-function-emat-back"
+  function_app_id = azurerm_linux_function_app.az_demo_app.id
+  language        = "Python"
+  test_data = jsonencode({
+    "name" = "Azure"
+  })
+  config_json = jsonencode({
+    "bindings" = [
+      {
+        "authLevel" = "function"
+        "direction" = "in"
+        "methods" = [
+          "get",
+          "post",
+        ]
+        "name" = "req"
+        "type" = "httpTrigger"
+      },
+      {
+        "direction" = "out"
+        "name"      = "$return"
+        "type"      = "http"
+      },
+    ]
+  })
+}
+
 
 data "archive_file" "function_zip" {
   type        = "zip"

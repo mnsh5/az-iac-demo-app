@@ -4,3 +4,4 @@ variable "m_location" {
   default     = "East US"
 }
 
+
