@@ -69,21 +69,19 @@ resource "azurerm_function_app_function" "az_demo_app" {
   config_json = jsonencode({
     "bindings" = [
       {
-        "authLevel" = "function"
-        "direction" = "in"
-        "methods" = [
-          "get",
-          "post",
-        ]
-        "name" = "req"
-        "type" = "httpTrigger"
+        "authLevel" = "function",
+        "direction" = "in",
+        "name"      = "req",
+        "type"      = "httpTrigger",
+        "methods"   = ["GET", "POST"],
+        "route"     = "MyHttpTrigger",
       },
       {
-        "direction" = "out"
-        "name"      = "$return"
-        "type"      = "http"
+        "direction" = "out",
+        "name"      = "$return",
+        "type"      = "http",
       },
-    ]
+    ],
   })
 }
 
