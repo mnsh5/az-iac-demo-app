@@ -74,23 +74,42 @@ resource "azurerm_function_app_function" "az_demo_app" {
     name    = "function_app.py"
     content = file("${path.module}/az-emat-back/function_app.py")
   }
-  config_json = jsonencode({
+   config_json = jsonencode({
     "bindings" = [
       {
-        "authLevel" = "function",
-        "direction" = "in",
-        "name"      = "req",
-        "type"      = "httpTrigger",
-        "methods"   = ["GET", "POST"],
-        "route"     = "MyHttpTrigger",
+        "authLevel" = "function"
+        "direction" = "in"
+        "methods" = [
+          "get",
+          "post",
+        ]
+        "name" = "req"
+        "type" = "httpTrigger"
       },
       {
-        "direction" = "out",
-        "name"      = "$return",
-        "type"      = "http",
+        "direction" = "out"
+        "name"      = "$return"
+        "type"      = "http"
       },
-    ],
+    ]
   })
+  # config_json = jsonencode({
+  #   "bindings" = [
+  #     {
+  #       "authLevel" = "function",
+  #       "direction" = "in",
+  #       "name"      = "req",
+  #       "type"      = "httpTrigger",
+  #       "methods"   = ["GET", "POST"],
+  #       "route"     = "MyHttpTrigger",
+  #     },
+  #     {
+  #       "direction" = "out",
+  #       "name"      = "$return",
+  #       "type"      = "http",
+  #     },
+  #   ],
+  # })
 }
 
 
