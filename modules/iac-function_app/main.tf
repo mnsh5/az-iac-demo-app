@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "az_storage_account" {
-  name                     = "azematbackstorageacc"
+  name                     = "rgazteparazrldematd8ee7"
   location                 = var.m_location
   resource_group_name      = var.rg_name
   account_tier             = "Standard"
@@ -31,7 +31,7 @@ resource "azurerm_storage_blob" "function_blob" {
 }
 
 resource "azurerm_application_insights" "az_app_insights" {
-  name                = "tf-test-appinsights"
+  name                = "az-emat-appinsights"
   location            = var.m_location
   resource_group_name = var.rg_name
   application_type    = "web"
