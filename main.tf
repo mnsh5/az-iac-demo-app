@@ -1,10 +1,10 @@
 locals {
   # Prefix used to discriminate among the different environments, e.g., _dev, _stg, _prod.
-  environment_postfix   = "_desa"
+  environment_postfix   = "_dev"
   project_name          = "teparazrld-emat"
   project_id            = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}"
   m_location            = "East US"
-  rg_name               = "rg-${local.project_id}" # rg-az-teparazrld-emat-desa
+  rg_name               = "rg-${local.project_id}" # rg-az-teparazrld-emat-dev
   blob_storage_back     = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-back" # az-teparazrld-emat-desa-back
   terraform_bucket_name = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-terraform-state" # az-teparazrld-emat-desa-terraform-state
 }

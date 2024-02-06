@@ -11,6 +11,7 @@ resource "azurerm_service_plan" "az_app_svc_plan" {
   location            = var.m_location
   resource_group_name = var.rg_name
   os_type             = "Linux"
+  # kind                = "FunctionApp"
   sku_name            = "Y1"
 }
 
@@ -52,11 +53,11 @@ resource "azurerm_linux_function_app" "az_demo_app" {
   }
 
   site_config {
-    linux_fx_version = "python|3.11"
+    # linux_fx_version = "python|3.11"
     always_on        = true
-    # application_stack {
-    #   python_version = "3.11"
-    # }
+    application_stack {
+      python_version = "3.11"
+    }
     cors {
       allowed_origins     = ["https://portal.azure.com"]
       support_credentials = true
