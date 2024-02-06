@@ -4,7 +4,7 @@
 variable "rg_name" {
   type        = string
   description = "Resource Group Name"
-  default = "rg-emat-app-dev"
+  # default = "rg-emat-app-dev"
 }
 
 variable "m_location" {

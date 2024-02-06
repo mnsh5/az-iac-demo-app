@@ -1,7 +1,7 @@
 resource "azurerm_storage_account" "az_storage_account" {
   name                     = "azematbackstorageacc"
   location                 = var.m_location
-  resource_group_name      = "rg-emat-app-dev"
+  resource_group_name      = var.rg_name
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
@@ -9,7 +9,7 @@ resource "azurerm_storage_account" "az_storage_account" {
 resource "azurerm_service_plan" "az_app_svc_plan" {
   name                = "az-emat-back-svc-plan"
   location            = var.m_location
-  resource_group_name = "rg-emat-app-dev"
+  resource_group_name = var.rg_name
   os_type             = "Linux"
   sku_name            = "Y1"
 }
@@ -33,7 +33,7 @@ resource "azurerm_storage_blob" "function_blob" {
 resource "azurerm_linux_function_app" "az_demo_app" {
   name                       = "az-function-emat-back"
   location                   = var.m_location
-  resource_group_name        = "rg-emat-app-dev"
+  resource_group_name        = var.rg_name
   service_plan_id            = azurerm_service_plan.az_app_svc_plan.id
   storage_account_name       = azurerm_storage_account.az_storage_account.name
   storage_account_access_key = azurerm_storage_account.az_storage_account.primary_access_key

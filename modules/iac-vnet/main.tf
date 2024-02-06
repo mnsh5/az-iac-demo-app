@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "az_nsg" {
   name                = "nsg-az-emat-app"
   location            = var.m_location
-  resource_group_name = "rg-emat-app-dev"
+  resource_group_name = var.rg_name
 
   security_rule {
     name                       = "AllowSSH"
@@ -19,8 +19,8 @@ resource "azurerm_network_security_group" "az_nsg" {
 
 resource "azurerm_virtual_network" "az_vnet" {
   name                = "vnet-az-emat"
-  location            = "East US"
-  resource_group_name = "rg-emat-app-dev"
+  location            = var.m_location
+  resource_group_name = var.rg_name
   address_space       = ["10.0.0.0/16"]
 
   subnet {
