@@ -27,7 +27,13 @@ resource "azurerm_storage_blob" "function_blob" {
   type                   = "Block"
 
   source = "${abspath(path.module)}/az-emat-back/az-emat-back.zip"
-  # source = data.archive_file.function_zip.output_path
+}
+
+resource "azurerm_application_insights" "az_app_insights" {
+  name                = "tf-test-appinsights"
+  location            = var.m_location
+  resource_group_name = var.rg_name
+  application_type    = "web"
 }
 
 resource "azurerm_linux_function_app" "az_demo_app" {
@@ -41,13 +47,16 @@ resource "azurerm_linux_function_app" "az_demo_app" {
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "python"
+    WEBSITE_RUN_FROM_PACKAGE          = 1
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.az_app_insights.instrumentation_key
   }
 
   site_config {
-    # linux_fx_version = "python|3.11"
-    application_stack {
-      python_version = "3.11"
-    }
+    linux_fx_version = "python|3.11"
+    always_on        = true
+    # application_stack {
+    #   python_version = "3.11"
+    # }
     cors {
       allowed_origins     = ["https://portal.azure.com"]
       support_credentials = true
@@ -115,7 +124,7 @@ resource "azurerm_function_app_function" "az_demo_app" {
 
 data "archive_file" "function_zip" {
   type        = "zip"
-  output_path = "${abspath(path.module)}/az-emat-back/az-emat-back.zip"
+  output_path = "${abspath(path.module)}/az-emat-back.zip"
 
   source {
     content  = file("${path.module}/az-emat-back/function_app.py")
