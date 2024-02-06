@@ -48,7 +48,6 @@ resource "azurerm_linux_function_app" "az_demo_app" {
     application_stack {
       python_version = "3.11"
     }
-
     cors {
       allowed_origins     = ["https://portal.azure.com"]
       support_credentials = true
@@ -71,6 +70,10 @@ resource "azurerm_function_app_function" "az_demo_app" {
   test_data = jsonencode({
     "name" = "Azure"
   })
+  file {
+    name    = "function_app.py"
+    content = file("${path.module}/az-emat-back/function_app.py")
+  }
   config_json = jsonencode({
     "bindings" = [
       {
