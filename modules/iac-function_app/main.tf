@@ -21,7 +21,7 @@ resource "azurerm_storage_container" "az_storage_container" {
 }
 
 resource "azurerm_storage_blob" "function_blob" {
-  name                   = "az-emat-back-blob-storage"
+  name                   = var.az_blob_storage_be
   storage_account_name   = azurerm_storage_account.az_storage_account.name
   storage_container_name = azurerm_storage_container.az_storage_container.name
   type                   = "Block"

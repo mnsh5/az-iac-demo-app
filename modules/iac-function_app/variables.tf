@@ -13,6 +13,7 @@ variable "rg_name" {
   # default = "rg-emat-app-dev"
 }
 
-
-
-
+variable "az_blob_storage_be" {
+  type        = string
+  description = "description"
+}
