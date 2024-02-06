@@ -5,8 +5,8 @@ locals {
   project_id            = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}"
   m_location            = "East US"
   rg_name               = "rg-${local.project_id}" # rg-az-teparazrld-emat-desa
-  blob_storage_back     = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-back"
-  terraform_bucket_name = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-terraform-state"
+  blob_storage_back     = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-back" # az-teparazrld-emat-desa-back
+  terraform_bucket_name = "az-${local.project_name}${replace(local.environment_postfix, "_", "-")}-terraform-state" # az-teparazrld-emat-desa-terraform-state
 }
 
 ######################################
