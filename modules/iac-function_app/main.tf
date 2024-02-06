@@ -125,7 +125,7 @@ resource "azurerm_function_app_function" "az_demo_app" {
 
 data "archive_file" "function_zip" {
   type        = "zip"
-  output_path = "${abspath(path.module)}/az-emat-back.zip"
+  output_path = "${abspath(path.module)}/az-emat-back/az-emat-back.zip"
 
   source {
     content  = file("${path.module}/az-emat-back/function_app.py")
