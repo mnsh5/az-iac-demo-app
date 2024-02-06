@@ -48,6 +48,11 @@ resource "azurerm_linux_function_app" "az_demo_app" {
     application_stack {
       python_version = "3.11"
     }
+
+    cors {
+      allowed_origins     = ["https://portal.azure.com"]
+      support_credentials = true
+    }
   }
 
   lifecycle {
