@@ -95,6 +95,7 @@ resource "azurerm_function_app_function" "az_demo_app" {
         ]
         "name" = "req"
         "type" = "httpTrigger"
+        "route"     = "MyHttpTrigger"
       },
       {
         "direction" = "out"
