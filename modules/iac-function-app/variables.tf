@@ -7,7 +7,7 @@ variable "m_location" {
   default     = "North Europe"
 }
 
-variable "m_rg_name" {
+variable "rg_name" {
   type        = string
   description = "Resource Group Name"
   default     = "rg-TEPARAZRLD-app-emat-dev"

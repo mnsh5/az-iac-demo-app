@@ -1,13 +1,13 @@
 resource "azurerm_user_assigned_identity" "functions" {
   name                = "assigned-identity-emat-back-dev"
   location            = var.m_location
-  resource_group_name = var.m_rg_name
+  resource_group_name = var.rg_name
 }
 
 resource "azurerm_service_plan" "az_app_svc_plan" {
   name                = "app-svc-plan-emat-back-dev"
   location            = var.m_location
-  resource_group_name = var.m_rg_name
+  resource_group_name = var.rg_name
   os_type             = "Linux"
   sku_name            = "Y1"
 }
@@ -15,7 +15,7 @@ resource "azurerm_service_plan" "az_app_svc_plan" {
 resource "azurerm_linux_function_app" "emat_func_app" {
   name                       = "fnc-emat-back-dev"
   location                   = var.m_location
-  resource_group_name        = var.m_rg_name
+  resource_group_name        = var.rg_name
   service_plan_id            = azurerm_service_plan.az_app_svc_plan.id
   storage_account_name       = data.azurerm_storage_account.az_storage_account_back.name
   storage_account_access_key = data.azurerm_storage_account.az_storage_account_back.primary_access_key
