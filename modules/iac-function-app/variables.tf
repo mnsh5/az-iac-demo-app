@@ -4,16 +4,24 @@
 variable "m_location" {
   type        = string
   description = "Location where resources should be deployed"
-  # default     = "East US"
+  default     = "North Europe"
 }
 
-variable "rg_name" {
+variable "m_rg_name" {
   type        = string
   description = "Resource Group Name"
-  # default = "rg-emat-app-dev"
+  default     = "rg-TEPARAZRLD-app-emat-dev"
 }
 
-variable "az_blob_storage_be" {
+variable "m_appinsights_apptype" {
   type        = string
-  description = "description"
+  description = "App insights application type"
+  default     = "web"
 }
+
+variable "m_appinsights_isrequired" {
+  type        = bool
+  description = "Creates application insights when set as True"
+  default     = true
+}
+

@@ -1,0 +1,74 @@
+name: Terraform
+run-name: "Terraform CICD - Emat IaC"
+on:
+  # push:
+  #   branches:
+  #     - "dev"
+env:
+  TERRAFORM_VERSION: 1.1.6
+  LOCATION: northeurope
+  ARM_LOCATION: northeurope
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  # ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    environment: development
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Generate Terraform state key
+        id: gen-state-key
+        run: echo "tfstate-${{ github.run_number }}" >> state-key.txt
+      
+      - name: Read state key
+        id: read-state-key
+        run: echo "::set-output name=state_key::$(cat state-key.txt)"
+
+      - name: Configure Azure Credentials # Configura las Credenciales de Azure.
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}",  "subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
+      
+      - name: 'Run az commands' # Se ejecutan comandos de Azure para verificar la configuración.
+        run: |
+          az account show
+          az account set --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          az configure --defaults location=northeurope    
+      
+      - name: Terraform Init
+        run: |
+          terraform init \
+          -backend-config="resource_group_name=rg-TEPARAZRLD-app-emat-dev" \
+          -backend-config="storage_account_name=ematdevterraformstate" \
+          -backend-config="container_name=ematdev" \
+          -backend-config="key=terraform.tfstate"
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
