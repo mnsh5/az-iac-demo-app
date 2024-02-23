@@ -24,13 +24,13 @@ resource "azurerm_virtual_network" "az_vnet" {
 
   subnet {
     name           = "${var.m_subnet_name}-subnet-pub-1"
-    address_prefix = "10.236.2.224/28"
+    address_prefix = "10.0.1.0/24"
     security_group = azurerm_network_security_group.nsg-pub.id
   }
 
   subnet {
     name           = "${var.m_subnet_name}-subnet-pub-2"
-    address_prefix = "10.236.2.240/28" 
+    address_prefix = "10.0.2.0/24"
     security_group = azurerm_network_security_group.nsg-pub.id
   }
 }
