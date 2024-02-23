@@ -2,9 +2,9 @@ locals {
   # Prefix used to discriminate among the different environments, e.g., _dev, _stg, _prod.
   environment_postfix = "_dev"
   project_name        = "demo"
-  project_id          = "${local.project_name}${replace(local.environment_postfix, "_", "-")}" # demo-dev
+  project_id          = "${local.project_name}${replace(local.environment_postfix, "_", "-")}" 
   m_location          = "East US"
-  rg_name             = "rg-demo-app-${local.project_id}"                                      # rg-demo-app-dev
+  rg_name             = "DevOps_AR_${local.project_id}-01"                                     
 }
 
 ######################################
@@ -13,7 +13,7 @@ locals {
 module "az_rg" {
   source     = "./modules/iac-rg"
   m_location = local.m_location
-  rg_name  = local.rg_name
+  rg_name    = local.rg_name
 }
 
 ####################################
@@ -21,13 +21,11 @@ module "az_rg" {
 ####################################
 module "az_virtual_network" {
   source                          = "./modules/iac-vnet"
-  m_vnet_resource_group           = var.m_vnet_resource_group
+  m_location                      = local.m_location
+  rg_name                         = local.rg_name
   m_virtual_network_name          = var.m_virtual_network_name
   m_subnet_name                   = var.m_subnet_name
   m_nsg_pub_name                  = var.m_nsg_pub_name
-  m_nsg_priv_name                 = var.m_nsg_priv_name
-  m_route_table_name              = var.m_route_table_name
-  m_vnet_location                 = var.m_vnet_location
 }
 
 ###################################

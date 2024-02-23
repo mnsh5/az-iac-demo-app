@@ -7,48 +7,29 @@ variable "m_location" {
   default     = "East US"
 }
 
-variable "rg_name" {
-  type        = string
-  description = "Name of the resource group"
-  default     = "rg-demo-app-dev"
-}
-
 variable "m_appinsights_isrequired" {
   type        = bool
   description = "Creates application insights when set as True"
   default     = true
 }
 
-
 #########################################################
 # Private endpoints Subnet Variables for Application    #
 #########################################################
-variable "m_vnet_resource_group" {
-  type        = string
-  description = "Name of the VNET Resource Group"
-}
-
 variable "m_virtual_network_name" {
   type        = string
   description = "Name of the virtual network"
+  default     = "vnet-iasp-eus-lz-network"
 }
 
 variable "m_subnet_name" {
   type        = string
   description = "Name of the subnet"
-}
-
-variable "m_route_table_name" {
-  type        = string
-  description = "Name of the Route Table"
+  default     = "vnet-iasp-eus"
 }
 
 variable "m_nsg_pub_name" {
   description = "The Network Security Group name"
   type        = string
-}
-
-variable "m_nsg_priv_name" {
-  description = "The Network Security Group name"
-  type        = string
+  default     = "vnet-iasp-eus"
 }
