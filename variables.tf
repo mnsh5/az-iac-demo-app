@@ -31,5 +31,5 @@ variable "m_subnet_name" {
 variable "m_nsg_pub_name" {
   description = "The Network Security Group name"
   type        = string
-  default     = "vnet-iasp-eus"
+  default     = "nsg-iasp-eus-network"
 }
