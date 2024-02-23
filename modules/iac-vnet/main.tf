@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "az_vnet" {
 resource "azurerm_network_security_group" "nsg-pub" {
   name                = var.m_nsg_pub_name
   resource_group_name = data.azurerm_resource_group.spoke.name
-  location            = var.m_vnet_location
+  location            = var.m_location
 
   security_rule {
     name                       = "AllowHTTP"
@@ -48,7 +48,7 @@ resource "azapi_resource" "subnet-pub-1" {
 resource "azurerm_network_security_group" "nsg-priv" {
   name                = var.m_nsg_priv_name
   resource_group_name = data.azurerm_resource_group.spoke.name
-  location            = var.m_vnet_location
+  location            = var.m_location
 
   security_rule {
     name                       = "AllowVnetInbound"

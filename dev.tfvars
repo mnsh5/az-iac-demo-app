@@ -1,6 +1,0 @@
-m_vnet_location                 = "France Central"
-m_vnet_resource_group           = "rg-iasp-frc-lz-network"
-m_virtual_network_name          = "vnet-iasp-frc-lz-network"
-m_route_table_name              = "udr-iasp-euw-lz-network"
-m_subnet_name                   = "vnet-iasp-frc-lz"
-m_nsg_name                      = "nsg-iasp-frc-lz-network"

@@ -1,10 +1,16 @@
 #########################################################
 # Global & Common Variables for Application
 #########################################################
-variable "m_vnet_location" {
+variable "m_location" {
   type        = string
   description = "Location where resources should be deployed"
-  default     = "France Central"
+  default     = "East US"
+}
+
+variable "rg_name" {
+  type        = string
+  description = "Name of the resource group"
+  default     = "rg-demo-app-dev"
 }
 
 variable "m_appinsights_isrequired" {
